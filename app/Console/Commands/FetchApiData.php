@@ -8,6 +8,7 @@ use App\Models\ItemPerDay;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\VarDumper\VarDumper;
 
 class FetchApiData extends Command
 {
@@ -48,15 +49,20 @@ class FetchApiData extends Command
      */
     public function handle()
     {
-        $lastUpdate =FetchInfo::orderBy('created_at', 'desc')->first();
-        if($lastUpdate->created_at->diffInHours(Carbon::now()) === 0){
+        $start = microtime(true);
+
+        if(!$this->isValid()){
+            dump('Validation failed');
             return;
         }
 
-        $start = microtime(true);
-        $data = array_filter($this->fetchData(), static function ($item) {
-            return $item['lastHour'] > 0;
-        });
+        $fetchInfo = FetchInfo::create([
+            'processed' => 0,
+            'created_at' =>  Carbon::now(),
+        ]);
+
+        $data = $this->fetchData();
+
         DB::beginTransaction();
         foreach ($data as $count => $jsonItem) {
             $item = Item::firstOrCreate(['ref' => $jsonItem['mainKey'], 'name' => $jsonItem['name']]);
@@ -70,13 +76,13 @@ class FetchApiData extends Command
             $todayItem->total_items += $jsonItem['totalSumCount'];
             $todayItem->save();
         }
-        DB::commit();
 
-        FetchInfo::create([
-            'execution_time' => microtime(true) - $start,
-            'item_count' => count($data),
-            'created_at' =>  $this->date = Carbon::now(),
-        ]);
+        $fetchInfo->execution_time = microtime(true) - $start;
+        $fetchInfo->item_count = count($data);
+        $fetchInfo->finished_at = Carbon::now();
+        $fetchInfo->processed = 1;
+        $fetchInfo->save();
+        DB::commit();
     }
 
     protected function fetchData() {
@@ -88,6 +94,23 @@ class FetchApiData extends Command
 
         $response = curl_exec ($curl);
         curl_close ($curl);
-        return \json_decode($response, true)['data'];
+
+        return array_filter(\json_decode($response, true)['data'], static function ($item) {
+            return $item['lastHour'] > 0;
+        });
+    }
+
+    protected function isValid() {
+        $workingCommand = FetchInfo::firstWhere('processed', 0);
+
+        if($workingCommand){
+            return false;
+        }
+
+        $lastUpdate =FetchInfo::orderBy('created_at', 'desc')->first();
+        $lastUpdate->created_at = $lastUpdate->created_at->set('minute', 0);
+        $lastUpdate->created_at = $lastUpdate->created_at->set('second', 0);
+        return !($lastUpdate->created_at->diffInHours(Carbon::now()) === 0);
+        return true;
     }
 }
