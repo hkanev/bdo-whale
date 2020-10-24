@@ -38,7 +38,7 @@ class FetchApiData extends Command
      */
     public function __construct()
     {
-        $this->date = Carbon::today()->addDay()->toDateString();
+        $this->date = Carbon::today()->toDateString();
         parent::__construct();
     }
 

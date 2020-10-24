@@ -157,7 +157,7 @@
       <workItem from="1603280515898" duration="1582000" />
       <workItem from="1603346995118" duration="1240000" />
       <workItem from="1603534334883" duration="3410000" />
-      <workItem from="1603538659675" duration="14721000" />
+      <workItem from="1603538659675" duration="21075000" />
     </task>
     <servers />
   </component>
@@ -168,13 +168,28 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2663" y="298" width="424" height="491" key="FileChooserDialogImpl" timestamp="1603536698892">
+    <state x="2663" y="298" width="424" height="491" key="FileChooserDialogImpl" timestamp="1603572931789">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2663" y="298" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1603536698892" />
+    <state x="2663" y="298" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1603572931789" />
     <state x="2369" y="175" width="1022" height="737" key="SettingsEditor" timestamp="1603538687210">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2369" y="175" width="1022" height="737" key="SettingsEditor/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1603538687210" />
+    <state x="2543" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1603570478311">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2543" y="239" width="672" height="678" key="search.everywhere.popup/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1603570478311" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/tracker.blade.php</url>
+          <line>8</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

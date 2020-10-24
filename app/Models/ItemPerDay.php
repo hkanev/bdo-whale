@@ -13,7 +13,9 @@ class ItemPerDay extends Model
 
     protected $guarded = [];
 
-    public function itemsPerDay() {
+    protected $dates = ['date'];
+
+    public function item() {
         return $this->belongsTo(Item::class);
     }
 
