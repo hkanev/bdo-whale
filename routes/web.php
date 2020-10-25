@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ItemPerDayController;
 use App\Models\Item;
 use App\Models\ItemPerDay;
 use Carbon\Carbon;
@@ -18,8 +19,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $itemsToday = ItemPerDay::whereDate('date', Carbon::now())->with('item')->orderBy('today_items', 'desc')->get();
-//    return new JsonResponse($itemsToday);
-    return view('tracker',  ['items' => $itemsToday]);
-});
+Route::get('/', [ItemPerDayController::class, 'index']);
