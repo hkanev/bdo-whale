@@ -19,4 +19,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ItemPerDayController::class, 'index']);
+Route::get('/', [ItemPerDayController::class, 'today']);
+Route::get('/lastWeek', [ItemPerDayController::class, 'lastWeek']);
+Route::get('/lastThreeDays', [ItemPerDayController::class, 'lastThreeDays']);
+Route::get('/lastMonth', [ItemPerDayController::class, 'lastMonth']);
+Route::get('/yesterday', [ItemPerDayController::class, 'yesterday']);

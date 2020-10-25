@@ -26,6 +26,11 @@ class ItemPerDay extends Model
         return self::whereDate('date', Carbon::now())->with('item')->orderBy('today_items', 'desc')->get();
     }
 
+    public static function fetchYesterdayItems()
+    {
+        return self::whereDate('date', Carbon::now()->subDay())->with('item')->orderBy('today_items', 'desc')->get();
+    }
+
     public static function fetchItemsForNDays($days) {
         if($days <= 0){
             throw new \Exception('Days must be positive number');
