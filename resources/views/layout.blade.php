@@ -43,7 +43,7 @@
         }
 
         .main {
-            background-image: url("images/main.png");
+            background-image: url("images/bdo-background.jpg");
             background-repeat: no-repeat;
             background-size: cover;
         }
